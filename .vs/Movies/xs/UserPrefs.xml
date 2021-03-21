@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{CE1B6DEA-B578-48CF-8122-4A3634732D58}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Movies/Web.config">
+    <Files>
+      <File FileName="Movies/Dockerfile" Line="1" Column="1" />
+      <File FileName="Movies/Web.config" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Movies" expanded="True">
+            <Node name="docker-compose" selected="True" />
+            <Node name="Movies" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Movies PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>../../nerddinerdocker/nerddinner-mvc4/docker-compose.dcproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
