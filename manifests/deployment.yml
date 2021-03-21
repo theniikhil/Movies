@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: theniikhilmovies 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: theniikhilmovies
+  template:
+    metadata:
+      labels:
+        app: theniikhilmovies 
+    spec:
+      containers:
+        - name: theniikhilmovies 
+          image: containertestdeployregistry.azurecr.io/theniikhilmovies
+          ports:
+          - containerPort: 80
