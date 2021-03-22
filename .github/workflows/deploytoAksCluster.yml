@@ -1,0 +1,50 @@
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: containertestdeployregistry.azurecr.io
+        username: ${{ secrets.acr_containertestdeployregistry_username }}
+        password: ${{ secrets.acr_containertestdeployregistry_password }}
+    
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/Movies" -f  "Movies/Dockerfile" -t containertestdeployregistry.azurecr.io/testkubernetesdeploy:${{ github.sha }} --label dockerfile-path=Movies/Dockerfile
+        docker push containertestdeployregistry.azurecr.io/testkubernetesdeploy:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ secrets.aks_testkubernetesdeploy_kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep testkubernetesdeploya781 | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace testkubernetesdeploya781`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: testkubernetesdeploya781
+        container-registry-url: containertestdeployregistry.azurecr.io
+        container-registry-username: ${{ secrets.acr_containertestdeployregistry_username }}
+        container-registry-password: ${{ secrets.acr_containertestdeployregistry_password }}
+        secret-name: testkubernetdockerauth
+       
+    - uses: azure/k8s-deploy@v1.2
+      with:
+        namespace: testkubernetesdeploya781
+        manifests: |
+          manifests/deployment-1.yml
+          manifests/service-1.yml
+        images: |
+          containertestdeployregistry.azurecr.io/testkubernetesdeploy:${{ github.sha }}
+        imagepullsecrets: |
+          testkubernetdockerauth
