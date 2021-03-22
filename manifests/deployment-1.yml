@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "testkubernetesdeploy-c645"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "testkubernetesdeploy-c645"
+  template:
+    metadata:
+      labels:
+        app: "testkubernetesdeploy-c645"
+    spec:
+      containers:
+        - name: "testkubernetesdeploy-c645"
+          image: "containertestdeployregistry.azurecr.io/testkubernetesdeploy"
+          ports:
+          - containerPort: 80
