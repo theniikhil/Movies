@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "testkubernetesdeploy-c645"
+    labels:
+        app: "testkubernetesdeploy-c645"
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+    selector:
+        app: "testkubernetesdeploy-c645"
